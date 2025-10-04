@@ -201,7 +201,7 @@ const Home = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold">Website</h3>
-              <p className="text-muted-foreground">shubhammali.tech</p>
+              <p className="text-muted-foreground">shubhamm.info</p>
             </div>
           </div>
         </motion.div>
