@@ -1,19 +1,40 @@
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send } from 'lucide-react'
 import { useState } from 'react'
+import { AnimatedText } from '@/components/ui/animated-text'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     subject: '',
     message: ''
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically handle the form submission
-    console.log('Form submitted:', formData)
+    
+    // Create the email body with proper formatting
+    const emailBody = `Hello Shubham,
+
+I'm ${formData.name}
+
+${formData.message}
+
+Best regards,
+${formData.name}`
+
+    // Create mailto URL with pre-filled content
+    const mailtoURL = `mailto:shubhammali929@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`
+    
+    // Open email client
+    window.location.href = mailtoURL
+    
+    // Reset form after sending
+    setFormData({
+      name: '',
+      subject: '',
+      message: ''
+    })
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -28,7 +49,10 @@ const Contact = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl font-bold text-center mb-12">Get in Touch</h2>
+        <AnimatedText 
+          text="Get in Touch"
+          className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent mb-12"
+        />
         
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Information */}
@@ -40,8 +64,11 @@ const Contact = () => {
           >
             <div>
               <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-muted-foreground mb-4">
                 Feel free to reach out to me for any questions or opportunities.
+              </p>
+              <p className="text-sm text-muted-foreground mb-8 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                💡 <strong>Quick Contact:</strong> Fill out the form and click "Send Message" to open your email client with a pre-filled message ready to send!
               </p>
             </div>
             
@@ -91,7 +118,7 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                  Name
+                  Your Name
                 </label>
                 <input
                   type="text"
@@ -99,22 +126,8 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-md bg-background text-foreground"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-md bg-background text-foreground"
+                  placeholder="Enter your full name"
+                  className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                 />
               </div>
@@ -129,7 +142,8 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-md bg-background text-foreground"
+                  placeholder="What is this regarding?"
+                  className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                 />
               </div>
@@ -143,19 +157,24 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows={4}
-                  className="w-full px-4 py-2 border rounded-md bg-background text-foreground"
+                  rows={5}
+                  placeholder="Tell me about your project, question, or opportunity..."
+                  className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
                   required
                 />
               </div>
               
-              <button
+              <motion.button
                 type="submit"
-                className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors"
+                className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                disabled={!formData.name || !formData.subject || !formData.message}
               >
                 Send Message
                 <Send className="ml-2 h-4 w-4" />
-              </button>
+              </motion.button>
+
             </form>
           </motion.div>
         </div>
