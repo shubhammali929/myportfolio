@@ -3,11 +3,9 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { cn } from '@/lib/utils'

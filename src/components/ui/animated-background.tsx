@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react'
-import { motion, useAnimation, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 export const AnimatedBackground = () => {
   const gridSize = 40
