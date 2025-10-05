@@ -111,11 +111,23 @@ ${formData.name}`
 
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ 
+              delay: 0.2,
+              duration: 0.5,
+              type: "spring",
+              stiffness: 100
+            }}
+            whileHover={{ scale: 1.01 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form 
+              onSubmit={handleSubmit} 
+              className="space-y-6 p-8 rounded-xl border border-primary/20 bg-background/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:border-primary/40"
+              style={{
+                background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%)',
+              }}
+            >
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                   Your Name
